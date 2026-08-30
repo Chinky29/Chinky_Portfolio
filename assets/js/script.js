@@ -23,8 +23,8 @@ function initPreloader() {
     preloader.classList.add('fade-out');
     setTimeout(() => {
       preloader.style.display = 'none';
-    }, 800);
-  }, 2600);
+    }, 400);
+  }, 1200);
 }
 
 /* ==========================================================================
