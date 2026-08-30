@@ -125,14 +125,16 @@ function initScrollAnimations() {
   const animatedElements = document.querySelectorAll('.animate-on-scroll');
   if (!animatedElements.length) return;
 
+  document.documentElement.classList.add('js-observer');
+
   const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        obs.unobserve(entry.target); // Trigger once per element
+        obs.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.15 });
+  }, { threshold: 0.05 });
 
   animatedElements.forEach(el => observer.observe(el));
 }
