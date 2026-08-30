@@ -43,8 +43,9 @@ function initThreeJsAbstractHero() {
   let height = container.clientHeight || window.innerHeight;
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-  
+  const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
+  camera.position.set(0, 0, 7);
+
   const renderer = new THREE.WebGLRenderer({ 
     canvas: canvas, 
     alpha: true, 
@@ -53,58 +54,83 @@ function initThreeJsAbstractHero() {
   renderer.setSize(width, height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
-  // Lighting
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+  // Lighting setup for glossy light reflection highlight
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
   scene.add(ambientLight);
-  const pointLight = new THREE.PointLight(0x00f0ff, 2);
-  pointLight.position.set(5, 5, 5);
+
+  // Directional Key Light (Upper-Left highlight on purple sphere)
+  const dirLight = new THREE.DirectionalLight(0xffffff, 1.8);
+  dirLight.position.set(-4, 5, 6);
+  scene.add(dirLight);
+
+  // Soft Teal Accent Point Light
+  const pointLight = new THREE.PointLight(0x2DD4BF, 2, 20);
+  pointLight.position.set(2, 2, 4);
   scene.add(pointLight);
 
-  // Abstract Geometry (Icosahedron for a tech-y feel)
-  const geometry = new THREE.IcosahedronGeometry(2, 1);
-  const material = new THREE.MeshPhongMaterial({
-    color: 0x00f0ff,
+  // Main Group for parallax
+  const mainGroup = new THREE.Group();
+  scene.add(mainGroup);
+
+  // 1. WIREFRAME ICOSAHEDRON (Teal/Cyan #2DD4BF, thin 1px stroke, ~45% opacity)
+  const wireGeo = new THREE.IcosahedronGeometry(2.4, 1);
+  const wireMat = new THREE.MeshBasicMaterial({
+    color: 0x2DD4BF,
     wireframe: true,
     transparent: true,
-    opacity: 0.8
+    opacity: 0.45
   });
-  const sphere = new THREE.Mesh(geometry, material);
-  scene.add(sphere);
+  const wireframe = new THREE.Mesh(wireGeo, wireMat);
+  wireframe.position.set(0.5, 0, 0); // Positioned between text and photo
+  mainGroup.add(wireframe);
 
-  // Floating inner core
-  const innerGeo = new THREE.SphereGeometry(0.8, 32, 32);
-  const innerMat = new THREE.MeshPhongMaterial({ 
-    color: 0x7000ff, 
-    emissive: 0x7000ff, 
-    emissiveIntensity: 0.5 
+  // 2. GLOWING SOLID SPHERE (Purple/Violet gradient #7C3AED with glossy highlight)
+  const sphereGeo = new THREE.SphereGeometry(1.15, 64, 64);
+  const sphereMat = new THREE.MeshPhongMaterial({
+    color: 0x7C3AED,
+    emissive: 0x4C1D95,
+    emissiveIntensity: 0.4,
+    specular: 0xffffff,
+    shininess: 90,
+    transparent: true,
+    opacity: 0.95
   });
-  const core = new THREE.Mesh(innerGeo, innerMat);
-  scene.add(core);
+  const solidSphere = new THREE.Mesh(sphereGeo, sphereMat);
+  // Slightly lower-right of wireframe center, overlapping it
+  solidSphere.position.set(1.1, -0.6, 0.4);
+  mainGroup.add(solidSphere);
 
-  camera.position.z = 5;
-
-  // Mouse interaction
+  // Mouse interaction for subtle parallax
   let mouseX = 0;
   let mouseY = 0;
+  let targetX = 0;
+  let targetY = 0;
+
   window.addEventListener('mousemove', (e) => {
     mouseX = (e.clientX / window.innerWidth) - 0.5;
     mouseY = (e.clientY / window.innerHeight) - 0.5;
   });
 
+  const clock = new THREE.Clock();
+
   function animate() {
     requestAnimationFrame(animate);
+    const elapsedTime = clock.getElapsedTime();
 
-    sphere.rotation.x += 0.005;
-    sphere.rotation.y += 0.005;
+    // 1. Very slow ambient rotation for wireframe (full rotation over ~50s)
+    wireframe.rotation.y = elapsedTime * 0.12;
+    wireframe.rotation.x = elapsedTime * 0.06;
 
-    core.rotation.y -= 0.01;
+    // 2. Gentle up-down floating motion for solid sphere (3-4s loop)
+    solidSphere.position.y = -0.6 + Math.sin(elapsedTime * 1.6) * 0.18;
+    solidSphere.position.x = 1.1 + Math.cos(elapsedTime * 1.2) * 0.08;
 
-    // Subtle mouse follow
-    sphere.position.x += (mouseX * 2 - sphere.position.x) * 0.05;
-    sphere.position.y += (-mouseY * 2 - sphere.position.y) * 0.05;
+    // 3. Mouse parallax shift toward cursor position
+    targetX = mouseX * 0.6;
+    targetY = -mouseY * 0.6;
 
-    core.position.x = sphere.position.x;
-    core.position.y = sphere.position.y;
+    mainGroup.position.x += (targetX - mainGroup.position.x) * 0.04;
+    mainGroup.position.y += (targetY - mainGroup.position.y) * 0.04;
 
     renderer.render(scene, camera);
   }
@@ -219,83 +245,84 @@ function initSkillSearch() {
 }
 
 /* ==========================================================================
-   5. STATS COUNT-UP OBSERVER
+   5. STATS COUNT-UP OBSERVER & STAGGERED ENTRANCE
    ========================================================================== */
 
 function initStatsCounter() {
-  const statNumbers = document.querySelectorAll('.stat-number');
-  const cards = document.querySelectorAll('.achievements-grid > div');
+  const achievementsSection = document.getElementById('achievements');
+  if (!achievementsSection) return;
 
-  if (!statNumbers.length) return;
+  const statCards = achievementsSection.querySelectorAll('.stat-card, .achievement-item-card');
+  const statNumbers = achievementsSection.querySelectorAll('.stat-number');
 
-  function animateSingleCounter(numEl) {
-    if (numEl.getAttribute('data-animated') === 'true') return;
+  let hasAnimated = false;
 
-    // Safely extract numeric value (strips any non-digit characters)
-    const rawAttr = numEl.getAttribute('data-target') || numEl.textContent;
-    const target = parseInt(String(rawAttr).replace(/\D/g, ''), 10);
+  function animateCount(el, target, duration = 1800) {
+    const start = 0;
+    const startTime = performance.now();
 
-    if (isNaN(target) || target <= 0) return;
-
-    // Mark as animated ONLY when count-up animation starts
-    numEl.setAttribute('data-animated', 'true');
-
-    console.log(`[StatCounter] Animating counter for ${numEl.nextElementSibling ? numEl.nextElementSibling.textContent : 'stat'}: Target = ${target}`);
-
-    // Set counter text to 0 at start of animation
-    numEl.textContent = '0';
-
-    const duration = 1600; // 1.6s
-    let startTime = null;
-
-    function step(timestamp) {
-      if (!startTime) startTime = timestamp;
-      const elapsed = timestamp - startTime;
+    function updateCount(currentTime) {
+      const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
 
-      // Smooth cubic ease-out curve (starts fast, decelerates near target)
+      // Ease-out cubic: 1 - (1 - t)^3
       const easeOut = 1 - Math.pow(1 - progress, 3);
-      const currentCount = Math.floor(easeOut * target);
+      const currentVal = Math.round(start + (target - start) * easeOut);
+
+      el.textContent = `${currentVal}${progress >= 1 ? '+' : ''}`;
 
       if (progress < 1) {
-        numEl.textContent = `${currentCount}`;
-        requestAnimationFrame(step);
+        requestAnimationFrame(updateCount);
       } else {
-        // Append "+" suffix ONLY after animation completes
-        numEl.textContent = `${target}+`;
+        el.textContent = `${target}+`;
       }
     }
 
-    requestAnimationFrame(step);
+    requestAnimationFrame(updateCount);
   }
 
-  // Trigger staggered card entrance animation
-  cards.forEach((card, index) => {
-    const cardObserver = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            card.classList.add('achievement-card-visible');
-            const numEl = card.querySelector('.stat-number');
-            if (numEl) animateSingleCounter(numEl);
-          }, index * 100);
-          obs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
+  function triggerAchievementsAnimation() {
+    if (hasAnimated) return;
+    hasAnimated = true;
 
-    cardObserver.observe(card);
-
-    // Fallback: Immediate check if card is already visible on page load/refresh
-    const rect = card.getBoundingClientRect();
-    if (rect.top < window.innerHeight && rect.bottom > 0) {
+    // Staggered entrance for all 6 cards
+    statCards.forEach((card, index) => {
       setTimeout(() => {
-        card.classList.add('achievement-card-visible');
+        card.classList.add('achieve-visible');
+
+        // Bounce emoji icon
+        const icon = card.querySelector('.achievement-icon');
+        if (icon) {
+          icon.classList.add('icon-bounce');
+        }
+
+        // Trigger number count-up for stat cards
         const numEl = card.querySelector('.stat-number');
-        if (numEl) animateSingleCounter(numEl);
-      }, index * 100);
-    }
-  });
+        if (numEl) {
+          const target = parseInt(numEl.getAttribute('data-target'), 10);
+          if (!isNaN(target)) {
+            animateCount(numEl, target, 1800);
+          }
+        }
+      }, index * 120);
+    });
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        triggerAchievementsAnimation();
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  observer.observe(achievementsSection);
+
+  // Fallback trigger if section is already in viewport on page reload
+  const rect = achievementsSection.getBoundingClientRect();
+  if (rect.top < window.innerHeight && rect.bottom >= 0) {
+    triggerAchievementsAnimation();
+  }
 }
 
 /* ==========================================================================
