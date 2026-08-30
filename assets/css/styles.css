@@ -1048,9 +1048,19 @@ body {
   gap: 1.5rem;
 }
 
-.stat-card {
+.stat-card,
+.achievement-item-card {
+  position: relative;
   padding: 2rem;
-  text-align: center;
+  border-top: 2px solid rgba(99, 102, 241, 0.35);
+  transition: all var(--transition-smooth);
+}
+
+.stat-card:hover,
+.achievement-item-card:hover {
+  transform: translateY(-4px) scale(1.015);
+  border-top-color: var(--accent-indigo);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.65), 0 0 25px var(--glow-indigo);
 }
 
 .stat-number {
@@ -1062,6 +1072,13 @@ body {
   -webkit-text-fill-color: transparent;
   line-height: 1;
   margin-bottom: 0.5rem;
+  transition: transform var(--transition-smooth), filter var(--transition-smooth);
+  display: inline-block;
+}
+
+.stat-card:hover .stat-number {
+  transform: scale(1.06);
+  filter: drop-shadow(0 0 12px rgba(99, 102, 241, 0.6));
 }
 
 .stat-title {
@@ -1082,8 +1099,24 @@ body {
 }
 
 .achievement-icon {
-  font-size: 1.75rem;
+  font-size: 1.85rem;
   margin-bottom: 0.75rem;
+  display: inline-block;
+  transition: transform var(--transition-smooth);
+}
+
+.achievement-item-card:hover .achievement-icon {
+  transform: scale(1.25) rotate(6deg);
+}
+
+.achievement-card-visible .achievement-icon {
+  animation: iconPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes iconPop {
+  0% { transform: scale(0.5); opacity: 0; }
+  70% { transform: scale(1.25) rotate(-6deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
 }
 
 .achievement-title {
