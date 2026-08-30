@@ -1155,20 +1155,6 @@ body {
   line-height: 1.5;
 }
 
-/* Staggered Entrance Animation for Achievement Cards */
-.js-observer #achievements .stat-card,
-.js-observer #achievements .achievement-item-card {
-  opacity: 0;
-  transform: translateY(25px);
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.js-observer #achievements .stat-card.achieve-visible,
-.js-observer #achievements .achievement-item-card.achieve-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 /* Icon Entrance Bounce */
 .icon-bounce {
   animation: iconPop 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
@@ -1867,6 +1853,22 @@ a, button, input, textarea {
 
 .form-input.error-border {
   border-color: #EF4444 !important;
+}
+
+.form-general-error {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #FCA5A5;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.form-general-error.hidden {
+  display: none;
 }
 
 .btn-spinner {
