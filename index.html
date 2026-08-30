@@ -1,631 +1,494 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chinky | Full-Stack Developer & CS Undergrad</title>
-  <meta name="description" content="Portfolio of Chinky - Final-year Computer Science undergraduate & full-stack developer skilled in React.js, Next.js 14, Node.js, MongoDB, and Python.">
-  <meta name="theme-color" content="#0A0A0E">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chinky | Full-Stack Developer & CS Undergraduate</title>
+  <meta name="description" content="Portfolio of Chinky — B.Tech CSE Student @ ABES Engineering College (2023–2027) & Full-Stack Developer building production-grade web apps, ML products, and developer communities."/>
+  <meta name="theme-color" content="#0A0A0F"/>
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Chinky — Full-Stack Developer & CS Undergrad">
-  <meta property="og:description" content="Full-Stack Developer skilled in React.js, Next.js, Node.js, MongoDB, and ML products. Explore projects, experience timeline, and technical skills.">
-  <meta property="og:image" content="profile.jpg">
-
-  <!-- Google Fonts: Space Grotesk, Inter, JetBrains Mono -->
+  <!-- Google Fonts: Space Grotesk & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+
+  <!-- Devicon CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"/>
 
   <!-- Three.js CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css"/>
 </head>
-<body>
+<body class="bg-void text-slate-200 antialiased relative selection:bg-indigo-500 selection:text-white">
 
-  <!-- Background Decorative Grid & Glows -->
-  <div class="bg-grid-overlay" aria-hidden="true"></div>
-  <div class="bg-ambient-glow" aria-hidden="true"></div>
+  <!-- Background Decorative Ambient Radial Glows -->
+  <div class="ambient-glow glow-top" aria-hidden="true"></div>
+  <div class="ambient-glow glow-bottom" aria-hidden="true"></div>
 
-  <!-- Header / Navigation -->
-  <header class="site-header" id="site-header">
-    <div class="container nav-container">
+  <!-- Header Navigation -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
       <a href="#hero" class="nav-brand" aria-label="Chinky Portfolio Home">
-        <span class="brand-text">chinky<span class="brand-dot">.dev</span></span>
+        <span class="brand-name">CHINKY</span>
+        <span class="brand-badge">DEV</span>
       </a>
 
       <nav class="nav-menu" id="nav-menu" aria-label="Main Navigation">
-        <ul class="nav-list">
-          <li><a href="#hero" class="nav-link active">Home</a></li>
-          <li><a href="#about" class="nav-link">About</a></li>
-          <li><a href="#projects" class="nav-link">Work</a></li>
-          <li><a href="#skills" class="nav-link">Skills</a></li>
-          <li><a href="#timeline" class="nav-link">Timeline</a></li>
-          <li><a href="#education" class="nav-link">Education</a></li>
-          <li><a href="#contact" class="nav-link">Contact</a></li>
-        </ul>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#achievements" class="nav-link">Achievements</a>
+        <a href="#education" class="nav-link">Education</a>
+        <a href="#contact" class="nav-link">Contact</a>
       </nav>
 
       <div class="nav-actions">
-        <a href="resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline btn-resume">
-          <span>Résumé</span>
+        <a href="resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-sm">
+          <span>Resume</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
         </a>
-
-        <button class="mobile-toggle" id="mobile-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
-          <span class="hamburger-box">
-            <span class="hamburger-inner"></span>
-          </span>
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         </button>
       </div>
     </div>
   </header>
 
   <main>
-    <!-- HERO SECTION WITH INTERACTIVE THREE.JS 3D SPHERE CANVAS -->
-    <section id="hero" class="section hero-section">
-      <!-- Three.js 3D WebGL Canvas Background -->
-      <canvas id="hero-3d-canvas" class="hero-3d-canvas" aria-hidden="true"></canvas>
+    <!-- HERO SECTION WITH ABSTRACT THREE.JS CANVAS -->
+    <section class="hero-section" id="hero">
+      <div class="hero-3d-wrapper" aria-hidden="true">
+        <canvas id="hero-3d-canvas"></canvas>
+      </div>
 
-      <div class="container hero-grid">
+      <div class="container hero-container">
         <div class="hero-content">
-          <span class="hero-subtitle">Hello, I'm</span>
-          
+          <div class="status-badge">
+            <span class="status-dot"></span>
+            <span>B.Tech CSE @ ABES Engineering College (2023–2027)</span>
+          </div>
+
           <h1 class="hero-title">
-            <span class="name-highlight">Chinky</span>
+            <span class="hero-name">Chinky</span>
+            <span class="hero-gradient-text">Full-Stack Developer</span>
+            <span class="hero-subtitle">&amp; CS Undergraduate</span>
           </h1>
 
-          <p class="hero-tagline">Full-Stack Developer &amp; Design-Minded Builder</p>
-
-          <!-- Minimal Clean Terminal Prompt -->
-          <div class="clean-prompt-block" aria-label="Developer Console Prompt">
-            <div class="prompt-line line-1">
-              <span class="prompt-symbol">$</span>
-              <span class="typed-text" id="cmd-1"></span>
-            </div>
-            <div class="prompt-output output-1" id="out-1"></div>
-            
-            <div class="prompt-line line-2 hidden-line" id="line-2">
-              <span class="prompt-symbol">$</span>
-              <span class="typed-text" id="cmd-2"></span>
-            </div>
-            <div class="prompt-output output-2" id="out-2"></div>
-
-            <div class="prompt-line-active" id="active-cursor-line">
-              <span class="prompt-symbol">$</span>
-              <span class="terminal-cursor"></span>
-            </div>
-          </div>
+          <p class="hero-tagline">
+            "Building production-grade web apps, ML-driven products, and AI-aware developer communities"
+          </p>
 
           <div class="hero-ctas">
-            <a href="#projects" class="btn btn-primary">
-              <span>View Work</span>
-            </a>
-            <a href="resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-              <span>Download Résumé</span>
-            </a>
+            <a href="#projects" class="btn btn-primary">View Projects</a>
+            <a href="resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-glass">Download Resume</a>
+            <a href="#contact" class="btn btn-ghost">Contact</a>
           </div>
 
-          <div class="social-links">
-            <a href="mailto:chin9899nk@gmail.com" class="social-link" aria-label="Send Email to Chinky" title="chin9899nk@gmail.com">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-              <span class="social-label">Email</span>
+          <div class="hero-socials">
+            <a href="https://github.com/Chinky29" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub Profile">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              <span>GitHub</span>
             </a>
             <a href="https://linkedin.com/in/chinky-" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn Profile">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-              <span class="social-label">LinkedIn</span>
-            </a>
-            <a href="https://github.com/Chinky29" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub Profile">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-              <span class="social-label">GitHub</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              <span>LinkedIn</span>
             </a>
           </div>
         </div>
 
         <div class="hero-visual">
-          <div class="profile-frame-wrapper">
-            <div class="profile-frame">
-              <img src="profile.jpg" alt="Chinky - Full Stack Developer" class="profile-img" width="400" height="500">
+          <div class="photo-card-container">
+            <div class="photo-card-inner">
+              <img src="assets/images/profile.jpg" alt="Chinky — Full Stack Developer" class="profile-photo" width="380" height="460">
             </div>
-            <div class="profile-ambient-glow"></div>
+            <div class="photo-ambient-glow"></div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ABOUT SECTION -->
-    <section id="about" class="section about-section reveal-on-scroll">
+    <section class="section about-section" id="about">
       <div class="container">
-        <div class="section-header">
-          <span class="section-mono-tag">// ABOUT_ME</span>
-          <h2 class="section-title">Background &amp; Focus</h2>
-        </div>
+        <div class="section-label">OVERVIEW</div>
+        <h2 class="section-heading">Engineering Modern Web Systems</h2>
 
-        <div class="about-card surface-card">
-          <div class="about-content">
-            <p class="about-text">
-              Computer Science undergraduate and full-stack developer skilled in React.js, Next.js, Node.js, and MongoDB, with hands-on experience building and deploying production-grade web applications. Proven track record in hackathons and open-source contributions, with a growing focus on ML-driven products and developer community building.
-            </p>
+        <div class="glass-card about-card">
+          <p class="about-bio">
+            Computer Science undergraduate and full-stack developer skilled in React.js, Next.js, Node.js, and MongoDB, with hands-on experience deploying production-grade web applications. Proven track record in hackathons and open-source contributions, with a growing focus on ML-driven products and developer community building.
+          </p>
+
+          <div class="about-badges">
+            <span class="competency-badge">Full-Stack Web Architecture</span>
+            <span class="competency-badge">Next.js 14 &amp; TypeScript</span>
+            <span class="competency-badge">ML Product Integration</span>
+            <span class="competency-badge">Community Leadership</span>
           </div>
-          <div class="about-highlights">
-            <div class="highlight-chip">Full-Stack Architecture</div>
-            <div class="highlight-chip">Next.js 14 &amp; React</div>
-            <div class="highlight-chip">ML Product Integration</div>
-            <div class="highlight-chip">Technical Leadership</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE SECTION -->
+    <section class="section experience-section" id="experience">
+      <div class="container">
+        <div class="section-label">CAREER</div>
+        <h2 class="section-heading">Work Experience</h2>
+
+        <div class="timeline-container">
+          <!-- Experience 1: MediKarya -->
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="glass-card timeline-card">
+              <div class="timeline-header">
+                <div>
+                  <div class="company-row">
+                    <div class="company-logo-img-wrapper">
+                      <img src="assets/images/medikarya.png" alt="MediKarya Technologies Logo" class="company-logo-img">
+                    </div>
+                    <span class="company-logo-badge">MediKarya</span>
+                    <span class="startup-tag">DPIIT-Recognized Startup</span>
+                  </div>
+                  <h3 class="role-title">Developer Intern</h3>
+                  <div class="company-name">MediKarya Technologies Pvt. Ltd.</div>
+                </div>
+                <div class="timeline-date">Jul 2026 – Present</div>
+              </div>
+
+              <ul class="timeline-bullets">
+                <li>Built product features for an AI-powered clinical learning platform for medical students, working directly with the founding team.</li>
+                <li>Developed a Medical Case Authoring Portal with a 6-step form wizard, live preview, and case management using Next.js 14, TypeScript, Tailwind CSS, with Clerk authentication.</li>
+                <li>Deployed on Vercel; independently debugged TypeScript type errors and Next.js Suspense boundary issues in CI/CD pipeline.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Experience 2: Google Ambassador -->
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="glass-card timeline-card">
+              <div class="timeline-header">
+                <div>
+                  <div class="company-row">
+                    <div class="company-logo-img-wrapper">
+                      <img src="assets/images/google.png" alt="Google Logo" class="company-logo-img">
+                    </div>
+                    <span class="company-logo-badge google-badge">Google</span>
+                  </div>
+                  <h3 class="role-title">Google Student Ambassador</h3>
+                  <div class="company-name">Google</div>
+                </div>
+                <div class="timeline-date">May 2026 – Present</div>
+              </div>
+
+              <ul class="timeline-bullets">
+                <li>Host workshops and peer learning sessions demonstrating AI tools like Google Gemini AI, helping peers integrate AI into daily developer workflows.</li>
+                <li>Building an AI-aware community on campus while receiving mentorship from Google employees and networking nationally with student tech leaders.</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- PROJECTS SECTION -->
-    <section id="projects" class="section projects-section reveal-on-scroll">
+    <section class="section projects-section" id="projects">
       <div class="container">
-        <div class="section-header">
-          <span class="section-mono-tag">// FEATURED_REPOSITORIES</span>
-          <h2 class="section-title">Featured Projects</h2>
-          <p class="section-desc">Production-grade web apps, AI integrations, and developer platforms built with modern tech stacks.</p>
-        </div>
+        <div class="section-label">PORTFOLIO</div>
+        <h2 class="section-heading">Featured Projects</h2>
 
         <div class="projects-grid">
           <!-- Project 1: TrustHire -->
-          <article class="project-card surface-card">
+          <div class="glass-card project-card">
             <div class="project-header">
-              <div class="project-type-badge">AI &amp; Web Platform</div>
-              <div class="project-actions">
-                <a href="https://github.com/Chinky29" target="_blank" rel="noopener noreferrer" class="project-icon-link" aria-label="TrustHire Repository on GitHub">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                </a>
-              </div>
+              <span class="project-category">AI &amp; Full-Stack</span>
+              <a href="https://github.com/Chinky29" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="TrustHire GitHub Repository">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              </a>
             </div>
 
-            <h3 class="project-title">TrustHire — AI-Powered Hiring Trust Platform</h3>
-            
-            <ul class="project-bullets">
-              <li>Built a full-stack hiring platform with dual-sided AI trust scoring automating credibility assessment for candidates and companies.</li>
-              <li>Engineered a Honesty Engine cross-referencing self-declared skills with GitHub activity to dynamically adjust candidate trust scores.</li>
-            </ul>
+            <h3 class="project-title">TrustHire</h3>
+            <p class="project-subtitle">AI-Powered Hiring Trust Platform</p>
+            <p class="project-description">
+              Built a full-stack hiring platform with dual-sided AI trust scoring automating credibility assessment for candidates and companies. Engineered a Honesty Engine cross-referencing self-declared skills with GitHub activity to dynamically adjust candidate trust scores.
+            </p>
 
-            <div class="project-tech-stack">
+            <div class="tech-stack-row">
               <span class="tech-chip">React.js</span>
               <span class="tech-chip">Node.js</span>
               <span class="tech-chip">Express.js</span>
               <span class="tech-chip">MongoDB</span>
               <span class="tech-chip">GitHub API</span>
-              <span class="tech-chip">REST API</span>
             </div>
-          </article>
+          </div>
 
           <!-- Project 2: AuraCycle -->
-          <article class="project-card surface-card">
+          <div class="glass-card project-card">
             <div class="project-header">
-              <div class="project-type-badge">ML &amp; HealthTech</div>
-              <div class="project-actions">
-                <a href="https://github.com/Chinky29" target="_blank" rel="noopener noreferrer" class="project-icon-link" aria-label="AuraCycle Repository on GitHub">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                </a>
-              </div>
+              <span class="project-category">ML &amp; HealthTech</span>
+              <a href="https://github.com/Chinky29" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="AuraCycle GitHub Repository">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              </a>
             </div>
 
-            <h3 class="project-title">AuraCycle — PCOD Risk Prediction &amp; Cycle Tracker</h3>
-            
-            <ul class="project-bullets">
-              <li>Developed a full-stack web app predicting PCOD risk using a trained ML classification model with real-time inference via Flask REST API.</li>
-              <li>Deployed on Render with gunicorn; CORS-secured backend with MongoDB Atlas and a responsive vanilla JS frontend.</li>
-            </ul>
+            <h3 class="project-title">AuraCycle</h3>
+            <p class="project-subtitle">PCOD Risk Prediction &amp; Cycle Tracker</p>
+            <p class="project-description">
+              Developed a full-stack web app predicting PCOD risk using a trained ML classification model with real-time inference via Flask REST API. Deployed on Render with gunicorn; CORS-secured backend with MongoDB Atlas and responsive frontend.
+            </p>
 
-            <div class="project-tech-stack">
+            <div class="tech-stack-row">
               <span class="tech-chip">Python</span>
               <span class="tech-chip">Flask</span>
               <span class="tech-chip">MongoDB Atlas</span>
               <span class="tech-chip">scikit-learn</span>
-              <span class="tech-chip">JavaScript</span>
               <span class="tech-chip">Render</span>
             </div>
-          </article>
+          </div>
 
           <!-- Project 3: OptiStay -->
-          <article class="project-card surface-card">
+          <div class="glass-card project-card">
             <div class="project-header">
-              <div class="project-type-badge">Full-Stack Marketplace</div>
-              <div class="project-actions">
-                <a href="https://github.com/Chinky29" target="_blank" rel="noopener noreferrer" class="project-icon-link" aria-label="OptiStay Repository on GitHub">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                </a>
-              </div>
+              <span class="project-category">Full-Stack Marketplace</span>
+              <a href="https://github.com/Chinky29" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="OptiStay GitHub Repository">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              </a>
             </div>
 
-            <h3 class="project-title">OptiStay — Full-Stack Rental Platform</h3>
-            
-            <ul class="project-bullets">
-              <li>Engineered an Airbnb-inspired rental marketplace with session-based auth, 10+ CRUD REST endpoints, and MVC architecture — 95%+ uptime.</li>
-              <li>Reduced MongoDB query latency ~40% via compound indexing; cut media load time 30% with Cloudinary CDN integration.</li>
-            </ul>
+            <h3 class="project-title">OptiStay</h3>
+            <p class="project-subtitle">Full-Stack Rental Marketplace</p>
+            <p class="project-description">
+              Engineered an Airbnb-inspired rental marketplace with session-based auth, 10+ CRUD REST endpoints, and MVC architecture (~95%+ uptime). Reduced MongoDB query latency ~40% via compound indexing; cut media load time 30% with Cloudinary CDN.
+            </p>
 
-            <div class="project-tech-stack">
+            <div class="tech-stack-row">
               <span class="tech-chip">Node.js</span>
               <span class="tech-chip">Express.js</span>
               <span class="tech-chip">MongoDB</span>
               <span class="tech-chip">Passport.js</span>
               <span class="tech-chip">Cloudinary</span>
-              <span class="tech-chip">Render</span>
             </div>
-          </article>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- SKILLS SECTION -->
-    <section id="skills" class="section skills-section reveal-on-scroll">
+    <section class="section skills-section" id="skills">
       <div class="container">
-        <div class="section-header">
-          <span class="section-mono-tag">// TECH_STACK</span>
-          <h2 class="section-title">Technical Expertise</h2>
-          <p class="section-desc">Languages, frameworks, databases, and developer tooling mastered through hands-on product engineering.</p>
-        </div>
+        <div class="section-label">CAPABILITIES</div>
+        <h2 class="section-heading">Technical Skills</h2>
 
         <div class="skills-grid">
           <!-- Languages -->
-          <div class="skill-category-card surface-card">
-            <div class="skill-category-header">
-              <h3 class="category-eyebrow">LANGUAGES</h3>
-            </div>
-            <div class="skill-chips-group">
-              <span class="skill-chip">Java</span>
-              <span class="skill-chip">Python</span>
-              <span class="skill-chip">JavaScript (ES6+)</span>
-              <span class="skill-chip">TypeScript</span>
-              <span class="skill-chip">SQL</span>
+          <div class="glass-card skill-card">
+            <h3 class="skill-category-title">Languages</h3>
+            <div class="skill-tags">
+              <span class="skill-tag"><i class="devicon-java-plain colored"></i> Java</span>
+              <span class="skill-tag"><i class="devicon-python-plain colored"></i> Python</span>
+              <span class="skill-tag"><i class="devicon-javascript-plain colored"></i> JavaScript (ES6+)</span>
+              <span class="skill-tag"><i class="devicon-typescript-plain colored"></i> TypeScript</span>
+              <span class="skill-tag"><i class="devicon-azuresqldatabase-plain colored"></i> SQL</span>
             </div>
           </div>
 
           <!-- Frontend -->
-          <div class="skill-category-card surface-card">
-            <div class="skill-category-header">
-              <h3 class="category-eyebrow">FRONTEND</h3>
-            </div>
-            <div class="skill-chips-group">
-              <span class="skill-chip">React.js</span>
-              <span class="skill-chip">Next.js 14</span>
-              <span class="skill-chip">HTML5</span>
-              <span class="skill-chip">CSS3</span>
-              <span class="skill-chip">Tailwind CSS</span>
-              <span class="skill-chip">shadcn/ui</span>
-              <span class="skill-chip">Bootstrap</span>
+          <div class="glass-card skill-card">
+            <h3 class="skill-category-title">Frontend</h3>
+            <div class="skill-tags">
+              <span class="skill-tag"><i class="devicon-react-original colored"></i> React.js</span>
+              <span class="skill-tag"><i class="devicon-nextjs-original-wordmark"></i> Next.js 14</span>
+              <span class="skill-tag"><i class="devicon-tailwindcss-original colored"></i> Tailwind CSS</span>
+              <span class="skill-tag">shadcn/ui</span>
+              <span class="skill-tag"><i class="devicon-html5-plain colored"></i> HTML5/CSS3</span>
+              <span class="skill-tag"><i class="devicon-bootstrap-plain colored"></i> Bootstrap</span>
             </div>
           </div>
 
           <!-- Backend -->
-          <div class="skill-category-card surface-card">
-            <div class="skill-category-header">
-              <h3 class="category-eyebrow">BACKEND</h3>
-            </div>
-            <div class="skill-chips-group">
-              <span class="skill-chip">Node.js</span>
-              <span class="skill-chip">Express.js</span>
-              <span class="skill-chip">Flask</span>
-              <span class="skill-chip">REST APIs</span>
-              <span class="skill-chip">Passport.js</span>
-              <span class="skill-chip">Session Management</span>
+          <div class="glass-card skill-card">
+            <h3 class="skill-category-title">Backend</h3>
+            <div class="skill-tags">
+              <span class="skill-tag"><i class="devicon-nodejs-plain colored"></i> Node.js</span>
+              <span class="skill-tag"><i class="devicon-express-original"></i> Express.js</span>
+              <span class="skill-tag"><i class="devicon-flask-original"></i> Flask</span>
+              <span class="skill-tag">REST APIs</span>
+              <span class="skill-tag">Passport.js</span>
             </div>
           </div>
 
           <!-- Database -->
-          <div class="skill-category-card surface-card">
-            <div class="skill-category-header">
-              <h3 class="category-eyebrow">DATABASE</h3>
-            </div>
-            <div class="skill-chips-group">
-              <span class="skill-chip">MongoDB</span>
-              <span class="skill-chip">MongoDB Atlas</span>
+          <div class="glass-card skill-card">
+            <h3 class="skill-category-title">Database</h3>
+            <div class="skill-tags">
+              <span class="skill-tag"><i class="devicon-mongodb-plain colored"></i> MongoDB</span>
+              <span class="skill-tag"><i class="devicon-mongodb-plain colored"></i> MongoDB Atlas</span>
             </div>
           </div>
 
           <!-- ML / AI -->
-          <div class="skill-category-card surface-card">
-            <div class="skill-category-header">
-              <h3 class="category-eyebrow">ML / AI</h3>
-            </div>
-            <div class="skill-chips-group">
-              <span class="skill-chip">scikit-learn</span>
-              <span class="skill-chip">Classification Models</span>
-              <span class="skill-chip">Data Preprocessing</span>
+          <div class="glass-card skill-card">
+            <h3 class="skill-category-title">ML / AI</h3>
+            <div class="skill-tags">
+              <span class="skill-tag"><i class="devicon-scikitlearn-plain colored"></i> scikit-learn</span>
+              <span class="skill-tag">Classification Models</span>
+              <span class="skill-tag">Data Preprocessing</span>
             </div>
           </div>
 
           <!-- Tools -->
-          <div class="skill-category-card surface-card">
-            <div class="skill-category-header">
-              <h3 class="category-eyebrow">TOOLS</h3>
-            </div>
-            <div class="skill-chips-group">
-              <span class="skill-chip">Git</span>
-              <span class="skill-chip">GitHub</span>
-              <span class="skill-chip">Postman</span>
-              <span class="skill-chip">Cloudinary</span>
-              <span class="skill-chip">Render</span>
-              <span class="skill-chip">Vercel</span>
-              <span class="skill-chip">VS Code</span>
-            </div>
-          </div>
-
-          <!-- Concepts -->
-          <div class="skill-category-card surface-card full-width-card">
-            <div class="skill-category-header">
-              <h3 class="category-eyebrow">CONCEPTS</h3>
-            </div>
-            <div class="skill-chips-group">
-              <span class="skill-chip">DSA</span>
-              <span class="skill-chip">OOP</span>
-              <span class="skill-chip">DBMS</span>
-              <span class="skill-chip">OS</span>
-              <span class="skill-chip">MVC Architecture</span>
-              <span class="skill-chip">REST</span>
-              <span class="skill-chip">CORS</span>
-              <span class="skill-chip">Authentication &amp; Authorization</span>
+          <div class="glass-card skill-card">
+            <h3 class="skill-category-title">Tools</h3>
+            <div class="skill-tags">
+              <span class="skill-tag"><i class="devicon-git-plain colored"></i> Git</span>
+              <span class="skill-tag"><i class="devicon-github-original"></i> GitHub</span>
+              <span class="skill-tag"><i class="devicon-postman-plain colored"></i> Postman</span>
+              <span class="skill-tag">Cloudinary</span>
+              <span class="skill-tag">Render</span>
+              <span class="skill-tag"><i class="devicon-vercel-original"></i> Vercel</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- TIMELINE SECTION (SIGNATURE GIT LOG ELEMENT) -->
-    <section id="timeline" class="section timeline-section reveal-on-scroll">
+    <!-- ACHIEVEMENTS SECTION -->
+    <section class="section achievements-section" id="achievements">
       <div class="container">
-        <div class="section-header">
-          <span class="section-mono-tag">// GIT_LOG --ONELINE --GRAPH</span>
-          <h2 class="section-title">Experience &amp; Achievements</h2>
-          <p class="section-desc">Commit history of roles, hackathon finishes, leadership, and technical milestones.</p>
-        </div>
+        <div class="section-label">RECOGNITION</div>
+        <h2 class="section-heading">Achievements &amp; Metrics</h2>
 
-        <div class="git-timeline-wrapper" id="git-timeline">
-          <!-- Animated Vertical Branch Line -->
-          <div class="git-branch-line" id="git-branch-line" aria-hidden="true"></div>
-
-          <div class="git-timeline-nodes">
-            <!-- Node 1: MediKarya Intern -->
-            <article class="git-node" data-hash="a3f9c21">
-              <div class="git-node-marker">
-                <span class="git-commit-dot"></span>
-              </div>
-              <div class="git-node-content surface-card">
-                <div class="git-node-meta">
-                  <span class="git-hash">a3f9c21</span>
-                  <span class="git-branch-tag tag-feat">head -> main</span>
-                  <time class="git-date">Jul 2026 – Present</time>
-                </div>
-                <h3 class="git-commit-msg">Developer Intern @ MediKarya Technologies Pvt. Ltd. <span class="badge-subt">DPIIT-Recognized Startup</span></h3>
-                <ul class="git-node-bullets">
-                  <li>Building product features for an AI-powered clinical learning platform for medical students, working directly with the founding team.</li>
-                  <li>Developed a Medical Case Authoring Portal with a 6-step form wizard, live preview, and case management using Next.js 14, TypeScript, Tailwind CSS, with Clerk authentication.</li>
-                  <li>Deployed on Vercel; independently debugged TypeScript type errors and Next.js Suspense boundary issues in CI/CD.</li>
-                </ul>
-              </div>
-            </article>
-
-            <!-- Node 2: Google Ambassador -->
-            <article class="git-node" data-hash="f8e1b04">
-              <div class="git-node-marker">
-                <span class="git-commit-dot"></span>
-              </div>
-              <div class="git-node-content surface-card">
-                <div class="git-node-meta">
-                  <span class="git-hash">f8e1b04</span>
-                  <span class="git-branch-tag tag-community">community</span>
-                  <time class="git-date">May 2026 – Present</time>
-                </div>
-                <h3 class="git-commit-msg">Google Student Ambassador @ Google</h3>
-                <ul class="git-node-bullets">
-                  <li>Host workshops and peer learning sessions demonstrating AI tools like Google Gemini AI.</li>
-                  <li>Building an AI-aware community on campus while receiving mentorship from Google employees and networking nationally.</li>
-                </ul>
-              </div>
-            </article>
-
-            <!-- Node 3: Elite Her Hackathon -->
-            <article class="git-node" data-hash="e4d7c10">
-              <div class="git-node-marker">
-                <span class="git-commit-dot"></span>
-              </div>
-              <div class="git-node-content surface-card">
-                <div class="git-node-meta">
-                  <span class="git-hash">e4d7c10</span>
-                  <span class="git-branch-tag tag-hackathon">hackathon</span>
-                  <time class="git-date">Apr 2026</time>
-                </div>
-                <h3 class="git-commit-msg">Elite Her Hackathon — Top 100 Nationally (Team Lead)</h3>
-                <ul class="git-node-bullets">
-                  <li>Led team to Top 100 nationally as Team Lead, set technical direction, and managed end-to-end delivery under tight deadlines.</li>
-                </ul>
-              </div>
-            </article>
-
-            <!-- Node 4: SGU Hackathon -->
-            <article class="git-node" data-hash="b9a3f52">
-              <div class="git-node-marker">
-                <span class="git-commit-dot"></span>
-              </div>
-              <div class="git-node-content surface-card">
-                <div class="git-node-meta">
-                  <span class="git-hash">b9a3f52</span>
-                  <span class="git-branch-tag tag-hackathon">hackathon</span>
-                  <time class="git-date">Mar 2026</time>
-                </div>
-                <h3 class="git-commit-msg">National Level Hackathon at SGU — Top 10 / 250 Teams</h3>
-                <ul class="git-node-bullets">
-                  <li>Secured Top 10 / 250 teams as Frontend Developer, shipped React.js + Tailwind CSS UI under a tight deadline.</li>
-                </ul>
-              </div>
-            </article>
-
-            <!-- Node 5: WEBNOVA 2026 -->
-            <article class="git-node" data-hash="d6c2e81">
-              <div class="git-node-marker">
-                <span class="git-commit-dot"></span>
-              </div>
-              <div class="git-node-content surface-card">
-                <div class="git-node-meta">
-                  <span class="git-hash">d6c2e81</span>
-                  <span class="git-branch-tag tag-award">finalist</span>
-                  <time class="git-date">2026</time>
-                </div>
-                <h3 class="git-commit-msg">WEBNOVA 2026 (IMS Engineering College x HackerRank) — Finalist</h3>
-                <ul class="git-node-bullets">
-                  <li>Finalist as Team Leader in national-level web development competition.</li>
-                </ul>
-              </div>
-            </article>
-
-            <!-- Node 6: Quantcraft -->
-            <article class="git-node" data-hash="7a1b4e9">
-              <div class="git-node-marker">
-                <span class="git-commit-dot"></span>
-              </div>
-              <div class="git-node-content surface-card">
-                <div class="git-node-meta">
-                  <span class="git-hash">7a1b4e9</span>
-                  <span class="git-branch-tag tag-award">finalist</span>
-                  <time class="git-date">2026</time>
-                </div>
-                <h3 class="git-commit-msg">Quantcraft, Galgotia University — Finalist</h3>
-                <ul class="git-node-bullets">
-                  <li>Finalist in national offline hackathon, presented TrustHire AI hiring platform.</li>
-                </ul>
-              </div>
-            </article>
+        <div class="achievements-grid">
+          <div class="glass-card stat-card">
+            <div class="stat-number" data-target="600">600+</div>
+            <div class="stat-title">DSA Problems Solved</div>
+            <div class="stat-description">LeetCode (100+) &amp; CodeChef (500+, 25-day streak)</div>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- STATS STRIP SECTION -->
-    <section id="stats" class="section stats-section reveal-on-scroll">
-      <div class="container">
-        <div class="stats-strip-card surface-card">
-          <div class="stats-grid">
-            <div class="stat-item">
-              <div class="stat-number" data-target="600">600+</div>
-              <div class="stat-label">DSA Problems Solved</div>
-            </div>
+          <div class="glass-card stat-card">
+            <div class="stat-number" data-target="20">20+</div>
+            <div class="stat-title">GitHub Repositories</div>
+            <div class="stat-description">Open-source projects with clean documentation</div>
+          </div>
 
-            <div class="stat-divider" aria-hidden="true"></div>
+          <div class="glass-card achievement-item-card">
+            <div class="achievement-icon">🏆</div>
+            <h3 class="achievement-title">WEBNOVA 2026 Finalist</h3>
+            <p class="achievement-sub">National Hackathon (IMS Engineering College x HackerRank) — Team Leader</p>
+          </div>
 
-            <div class="stat-item">
-              <div class="stat-number" data-target="100">100+</div>
-              <div class="stat-label">LeetCode (Arrays, Trees, Graphs, DP)</div>
-            </div>
+          <div class="glass-card achievement-item-card">
+            <div class="achievement-icon">🥇</div>
+            <h3 class="achievement-title">Top 100 Nationally</h3>
+            <p class="achievement-sub">Elite Her Hackathon (Apr 2026) — Team Lead</p>
+          </div>
 
-            <div class="stat-divider" aria-hidden="true"></div>
+          <div class="glass-card achievement-item-card">
+            <div class="achievement-icon">🎯</div>
+            <h3 class="achievement-title">Top 10 / 250 Teams</h3>
+            <p class="achievement-sub">National Hackathon at SGU (Mar 2026) — Frontend Developer</p>
+          </div>
 
-            <div class="stat-item">
-              <div class="stat-number" data-target="500">500+</div>
-              <div class="stat-label">CodeChef (25-Day Streak)</div>
-            </div>
-
-            <div class="stat-divider" aria-hidden="true"></div>
-
-            <div class="stat-item">
-              <div class="stat-number" data-target="20">20+</div>
-              <div class="stat-label">GitHub Repositories</div>
-            </div>
-
-            <div class="stat-divider" aria-hidden="true"></div>
-
-            <div class="stat-item">
-              <div class="stat-badge-text">Intermediate</div>
-              <div class="stat-label">HackerRank Problem Solving Certified</div>
-            </div>
+          <div class="glass-card achievement-item-card">
+            <div class="achievement-icon">💡</div>
+            <h3 class="achievement-title">Quantcraft Finalist</h3>
+            <p class="achievement-sub">Galgotia University Offline Hackathon — Presented TrustHire</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- EDUCATION SECTION -->
-    <section id="education" class="section education-section reveal-on-scroll">
+    <section class="section education-section" id="education">
       <div class="container">
-        <div class="section-header">
-          <span class="section-mono-tag">// ACADEMIC_RECORD</span>
-          <h2 class="section-title">Education</h2>
-        </div>
+        <div class="section-label">ACADEMICS</div>
+        <h2 class="section-heading">Education</h2>
 
-        <div class="education-grid">
-          <div class="education-card surface-card">
-            <div class="edu-header">
-              <div class="edu-degree">B.Tech — Computer Science &amp; Engineering</div>
-              <div class="edu-year">2023 – 2027</div>
+        <div class="glass-card education-card">
+          <div class="edu-content">
+            <div class="edu-institution-row">
+              <div class="edu-logo-wrapper">
+                <img src="assets/images/abes.png" alt="ABES Engineering College Crest" class="edu-logo-img">
+                <span class="edu-badge">ABES Engineering College</span>
+              </div>
+              <span class="edu-years">2023 – 2027</span>
             </div>
-            <div class="edu-institution">ABES Engineering College, Ghaziabad</div>
-            <div class="edu-tag">Final-Year Undergraduate</div>
-          </div>
-
-          <div class="education-card surface-card">
-            <div class="edu-header">
-              <div class="edu-degree">Senior Secondary (CBSE) — PCM</div>
-              <div class="edu-year">2023</div>
-            </div>
-            <div class="edu-institution">Aryavratt Public School</div>
-            <div class="edu-score"><span class="score-label">Score:</span> <span class="score-val">80%</span></div>
+            <h3 class="edu-degree">B.Tech — Computer Science &amp; Engineering</h3>
+            <p class="edu-location">Ghaziabad, Uttar Pradesh • Final-Year CS Undergraduate</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CONTACT / FOOTER SECTION -->
-    <section id="contact" class="section contact-section">
+    <!-- CONTACT SECTION -->
+    <section class="section contact-section" id="contact">
       <div class="container">
-        <div class="contact-card surface-card">
-          <p class="contact-availability-text">Available for full-time software engineering roles &amp; technical opportunities.</p>
+        <div class="glass-card contact-card">
+          <div class="contact-grid">
+            <div class="contact-info">
+              <div class="section-label">GET IN TOUCH</div>
+              <h2 class="contact-heading">Let's Connect</h2>
+              <p class="contact-lead">
+                Open for full-time software engineering roles, technical collaborations, and hackathons.
+              </p>
 
-          <div class="contact-command-bar">
-            <span class="cmd-prompt">$</span>
-            <span class="cmd-text">contact --chinky</span>
-          </div>
+              <div class="contact-details">
+                <div class="contact-detail-item">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  <a href="mailto:chin9899nk@gmail.com">chin9899nk@gmail.com</a>
+                </div>
+                <div class="contact-detail-item">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                  <a href="tel:+919953046035">+91-9953046035</a>
+                </div>
+              </div>
+            </div>
 
-          <h2 class="contact-title">Let's Build Something Together</h2>
-          <p class="contact-desc">Open for full-time engineering roles, software development opportunities, hackathons, and technical collaborations.</p>
+            <form id="contact-form" class="contact-form">
+              <div class="form-group">
+                <label for="contact-name" class="form-label">Name</label>
+                <input type="text" id="contact-name" required class="form-input" placeholder="Your Name">
+              </div>
 
-          <div class="contact-actions">
-            <button class="btn btn-primary btn-copy-email" id="copy-email-btn" data-email="chin9899nk@gmail.com">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-              <span>chin9899nk@gmail.com</span>
-              <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-            </button>
+              <div class="form-group">
+                <label for="contact-email" class="form-label">Email</label>
+                <input type="email" id="contact-email" required class="form-input" placeholder="your@email.com">
+              </div>
 
-            <a href="https://linkedin.com/in/chinky-" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-              <span>LinkedIn</span>
-            </a>
+              <div class="form-group">
+                <label for="contact-message" class="form-label">Message</label>
+                <textarea id="contact-message" rows="4" required class="form-input form-textarea" placeholder="Hello Chinky, I'd like to discuss..."></textarea>
+              </div>
 
-            <a href="https://github.com/Chinky29" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-              <span>GitHub</span>
-            </a>
-          </div>
-
-          <!-- Toast Notification for Copy -->
-          <div class="toast-notification" id="toast-notification" role="status" aria-live="polite">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFB020" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span>Email copied to clipboard!</span>
+              <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+            </form>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-content">
+  <!-- Toast Notification -->
+  <div id="toast" class="toast-notification" role="status" aria-live="polite">
+    <span id="toast-message">Thank you! Message sent successfully.</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-container">
       <div class="footer-left">
-        <span class="footer-hash">commit 9d82e1a</span>
-        <span class="footer-sep">•</span>
-        <span class="footer-copy">&copy; 2026 Chinky. Designed &amp; engineered with discipline.</span>
+        <span class="footer-brand">CHINKY.DEV</span>
+        <span class="footer-copy">&copy; 2026 Chinky. Designed with precision &amp; discipline.</span>
       </div>
       <div class="footer-right">
-        <span class="footer-stack">HTML5 / CSS3 / Vanilla JS</span>
+        <a href="https://github.com/Chinky29" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+        <a href="https://linkedin.com/in/chinky-" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+        <a href="mailto:chin9899nk@gmail.com" class="footer-link">Email</a>
       </div>
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="assets/js/script.js"></script>
 </body>
 </html>
