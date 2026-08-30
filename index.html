@@ -389,95 +389,110 @@
 
         <!-- Live Skill Search Bar -->
         <div class="skills-search-wrapper">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           <input type="text" id="skill-search" placeholder="Search skills across all categories (e.g. Next.js, Python, Git)..." class="skills-search-input" aria-label="Search technical skills">
+          <button type="button" id="skill-search-clear" class="skills-search-clear hidden" aria-label="Clear search input">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
         </div>
 
         <div class="skills-grid">
           <!-- Languages -->
-          <div class="glass-card skill-card">
+          <div class="glass-card skill-card" data-category-theme="languages">
             <h3 class="skill-category-title">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+              <span class="category-icon-badge">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+              </span>
               Languages
             </h3>
             <div class="skill-tags">
-              <span class="skill-tag"><i class="devicon-java-plain colored"></i> Java</span>
-              <span class="skill-tag"><i class="devicon-python-plain colored"></i> Python</span>
-              <span class="skill-tag"><i class="devicon-javascript-plain colored"></i> JavaScript (ES6+)</span>
-              <span class="skill-tag"><i class="devicon-typescript-plain colored"></i> TypeScript</span>
-              <span class="skill-tag"><i class="devicon-azuresqldatabase-plain colored"></i> SQL</span>
+              <span class="skill-tag"><i class="devicon-java-plain colored"></i> Java <span class="skill-level-dots" title="Proficiency: Advanced"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></span></span>
+              <span class="skill-tag"><i class="devicon-python-plain colored"></i> Python <span class="skill-level-dots" title="Proficiency: Advanced"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></span></span>
+              <span class="skill-tag"><i class="devicon-javascript-plain colored"></i> JavaScript (ES6+) <span class="skill-level-dots" title="Proficiency: Expert"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></span></span>
+              <span class="skill-tag"><i class="devicon-typescript-plain colored"></i> TypeScript <span class="skill-level-dots" title="Proficiency: Intermediate"><span class="dot active"></span><span class="dot active"></span><span class="dot"></span></span></span>
+              <span class="skill-tag"><i class="devicon-azuresqldatabase-plain colored"></i> SQL <span class="skill-level-dots" title="Proficiency: Intermediate"><span class="dot active"></span><span class="dot active"></span><span class="dot"></span></span></span>
             </div>
           </div>
 
           <!-- Frontend -->
-          <div class="glass-card skill-card">
+          <div class="glass-card skill-card" data-category-theme="frontend">
             <h3 class="skill-category-title">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+              <span class="category-icon-badge">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+              </span>
               Frontend
             </h3>
             <div class="skill-tags">
-              <span class="skill-tag"><i class="devicon-react-original colored"></i> React.js</span>
-              <span class="skill-tag"><i class="devicon-nextjs-original-wordmark"></i> Next.js 14</span>
-              <span class="skill-tag"><i class="devicon-tailwindcss-original colored"></i> Tailwind CSS</span>
-              <span class="skill-tag">shadcn/ui</span>
-              <span class="skill-tag"><i class="devicon-html5-plain colored"></i> HTML5/CSS3</span>
-              <span class="skill-tag"><i class="devicon-bootstrap-plain colored"></i> Bootstrap</span>
+              <span class="skill-tag"><i class="devicon-react-original colored"></i> React.js <span class="skill-level-dots" title="Proficiency: Expert"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></span></span>
+              <span class="skill-tag"><i class="devicon-nextjs-original-wordmark"></i> Next.js 14 <span class="skill-level-dots" title="Proficiency: Advanced"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></span></span>
+              <span class="skill-tag"><i class="devicon-tailwindcss-original colored"></i> Tailwind CSS <span class="skill-level-dots" title="Proficiency: Expert"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></span></span>
+              <span class="skill-tag">shadcn/ui <span class="skill-level-dots" title="Proficiency: Advanced"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></span></span>
+              <span class="skill-tag"><i class="devicon-html5-plain colored"></i> HTML5/CSS3 <span class="skill-level-dots" title="Proficiency: Expert"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></span></span>
+              <span class="skill-tag"><i class="devicon-bootstrap-plain colored"></i> Bootstrap <span class="skill-level-dots" title="Proficiency: Intermediate"><span class="dot active"></span><span class="dot active"></span><span class="dot"></span></span></span>
             </div>
           </div>
 
           <!-- Backend -->
-          <div class="glass-card skill-card">
+          <div class="glass-card skill-card" data-category-theme="backend">
             <h3 class="skill-category-title">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+              <span class="category-icon-badge">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+              </span>
               Backend
             </h3>
             <div class="skill-tags">
-              <span class="skill-tag"><i class="devicon-nodejs-plain colored"></i> Node.js</span>
-              <span class="skill-tag"><i class="devicon-express-original"></i> Express.js</span>
-              <span class="skill-tag"><i class="devicon-flask-original"></i> Flask</span>
-              <span class="skill-tag">REST APIs</span>
-              <span class="skill-tag">Passport.js</span>
+              <span class="skill-tag"><i class="devicon-nodejs-plain colored"></i> Node.js <span class="skill-level-dots" title="Proficiency: Expert"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></span></span>
+              <span class="skill-tag"><i class="devicon-express-original"></i> Express.js <span class="skill-level-dots" title="Proficiency: Expert"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></span></span>
+              <span class="skill-tag"><i class="devicon-flask-original"></i> Flask <span class="skill-level-dots" title="Proficiency: Intermediate"><span class="dot active"></span><span class="dot active"></span><span class="dot"></span></span></span>
+              <span class="skill-tag">REST APIs <span class="skill-level-dots" title="Proficiency: Expert"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></span></span>
+              <span class="skill-tag">Passport.js <span class="skill-level-dots" title="Proficiency: Advanced"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></span></span>
             </div>
           </div>
 
           <!-- Database -->
-          <div class="glass-card skill-card">
+          <div class="glass-card skill-card" data-category-theme="database">
             <h3 class="skill-category-title">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+              <span class="category-icon-badge">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+              </span>
               Database
             </h3>
             <div class="skill-tags">
-              <span class="skill-tag"><i class="devicon-mongodb-plain colored"></i> MongoDB</span>
-              <span class="skill-tag"><i class="devicon-mongodb-plain colored"></i> MongoDB Atlas</span>
+              <span class="skill-tag"><i class="devicon-mongodb-plain colored"></i> MongoDB <span class="skill-level-dots" title="Proficiency: Expert"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></span></span>
+              <span class="skill-tag"><i class="devicon-mongodb-plain colored"></i> MongoDB Atlas <span class="skill-level-dots" title="Proficiency: Advanced"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></span></span>
             </div>
           </div>
 
           <!-- ML / AI -->
-          <div class="glass-card skill-card">
+          <div class="glass-card skill-card" data-category-theme="ai">
             <h3 class="skill-category-title">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="15" x2="23" y2="15"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="15" x2="4" y2="15"></line></svg>
+              <span class="category-icon-badge">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="15" x2="23" y2="15"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="15" x2="4" y2="15"></line></svg>
+              </span>
               ML / AI
             </h3>
             <div class="skill-tags">
-              <span class="skill-tag"><i class="devicon-scikitlearn-plain colored"></i> scikit-learn</span>
-              <span class="skill-tag">Classification Models</span>
-              <span class="skill-tag">Data Preprocessing</span>
+              <span class="skill-tag"><i class="devicon-scikitlearn-plain colored"></i> scikit-learn <span class="skill-level-dots" title="Proficiency: Intermediate"><span class="dot active"></span><span class="dot active"></span><span class="dot"></span></span></span>
+              <span class="skill-tag">Classification Models <span class="skill-level-dots" title="Proficiency: Intermediate"><span class="dot active"></span><span class="dot active"></span><span class="dot"></span></span></span>
+              <span class="skill-tag">Data Preprocessing <span class="skill-level-dots" title="Proficiency: Intermediate"><span class="dot active"></span><span class="dot active"></span><span class="dot"></span></span></span>
             </div>
           </div>
 
           <!-- Tools -->
-          <div class="glass-card skill-card">
+          <div class="glass-card skill-card" data-category-theme="tools">
             <h3 class="skill-category-title">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+              <span class="category-icon-badge">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+              </span>
               Tools
             </h3>
             <div class="skill-tags">
-              <span class="skill-tag"><i class="devicon-git-plain colored"></i> Git</span>
-              <span class="skill-tag"><i class="devicon-github-original"></i> GitHub</span>
-              <span class="skill-tag"><i class="devicon-postman-plain colored"></i> Postman</span>
-              <span class="skill-tag">Cloudinary</span>
-              <span class="skill-tag">Render</span>
-              <span class="skill-tag"><i class="devicon-vercel-original"></i> Vercel</span>
+              <span class="skill-tag"><i class="devicon-git-plain colored"></i> Git <span class="skill-level-dots" title="Proficiency: Expert"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></span></span>
+              <span class="skill-tag"><i class="devicon-github-original"></i> GitHub <span class="skill-level-dots" title="Proficiency: Expert"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></span></span>
+              <span class="skill-tag"><i class="devicon-postman-plain colored"></i> Postman <span class="skill-level-dots" title="Proficiency: Expert"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></span></span>
+              <span class="skill-tag">Cloudinary <span class="skill-level-dots" title="Proficiency: Advanced"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></span></span>
+              <span class="skill-tag">Render <span class="skill-level-dots" title="Proficiency: Advanced"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></span></span>
+              <span class="skill-tag"><i class="devicon-vercel-original"></i> Vercel <span class="skill-level-dots" title="Proficiency: Advanced"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></span></span>
             </div>
           </div>
         </div>

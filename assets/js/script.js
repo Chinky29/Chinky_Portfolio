@@ -157,7 +157,6 @@ function initThreeJsAbstractHero() {
 /* ==========================================================================
    2. GLOBAL SCROLL ENTRANCE ANIMATION (INTERSECTION OBSERVER)
    ========================================================================== */
-
 function initScrollAnimations() {
   const animatedElements = document.querySelectorAll('.animate-on-scroll');
   if (!animatedElements.length) return;
@@ -168,12 +167,30 @@ function initScrollAnimations() {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
+
+        // Trigger staggered card and chip animations for skills section
+        if (entry.target.id === 'skills' || entry.target.classList.contains('skills-section')) {
+          initSkillsStagger();
+        }
+
         obs.unobserve(entry.target);
       }
     });
   }, { threshold: 0.05 });
 
   animatedElements.forEach(el => observer.observe(el));
+}
+
+function initSkillsStagger() {
+  const skillCards = document.querySelectorAll('.skill-card');
+  skillCards.forEach((card, cardIdx) => {
+    card.style.transitionDelay = `${cardIdx * 80}ms`;
+
+    const chips = card.querySelectorAll('.skill-tag');
+    chips.forEach((chip, chipIdx) => {
+      chip.style.transitionDelay = `${cardIdx * 80 + 100 + chipIdx * 40}ms`;
+    });
+  });
 }
 
 /* ==========================================================================
@@ -234,22 +251,71 @@ function initProjectFilters() {
 
 function initSkillSearch() {
   const searchInput = document.getElementById('skill-search');
-  const skillTags = document.querySelectorAll('.skill-tag');
+  const clearBtn = document.getElementById('skill-search-clear');
+  const skillCards = document.querySelectorAll('.skill-card');
 
-  if (!searchInput || !skillTags.length) return;
+  if (!searchInput || !skillCards.length) return;
 
-  searchInput.addEventListener('input', (e) => {
-    const query = e.target.value.toLowerCase().trim();
+  function performSearch() {
+    const query = searchInput.value.toLowerCase().trim();
 
-    skillTags.forEach(tag => {
-      const text = tag.textContent.toLowerCase();
-      if (!query || text.includes(query)) {
-        tag.classList.remove('hidden');
+    if (clearBtn) {
+      if (query.length > 0) {
+        clearBtn.classList.remove('hidden');
       } else {
-        tag.classList.add('hidden');
+        clearBtn.classList.add('hidden');
+      }
+    }
+
+    skillCards.forEach(card => {
+      const tags = card.querySelectorAll('.skill-tag');
+      let hasMatchInCard = false;
+
+      tags.forEach(tag => {
+        const tagText = Array.from(tag.childNodes)
+          .filter(node => node.nodeType === Node.TEXT_NODE)
+          .map(node => node.textContent)
+          .join('')
+          .trim()
+          .toLowerCase();
+
+        const fullText = tag.textContent.toLowerCase();
+
+        if (!query || tagText.includes(query) || fullText.includes(query)) {
+          tag.classList.remove('hidden');
+          if (query) {
+            tag.classList.add('highlighted');
+          } else {
+            tag.classList.remove('highlighted');
+          }
+          hasMatchInCard = true;
+        } else {
+          tag.classList.add('hidden');
+          tag.classList.remove('highlighted');
+        }
+      });
+
+      if (!query) {
+        card.classList.remove('hidden', 'card-highlight');
+      } else if (hasMatchInCard) {
+        card.classList.remove('hidden');
+        card.classList.add('card-highlight');
+      } else {
+        card.classList.add('hidden');
+        card.classList.remove('card-highlight');
       }
     });
-  });
+  }
+
+  searchInput.addEventListener('input', performSearch);
+
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      performSearch();
+      searchInput.focus();
+    });
+  }
 }
 
 /* ==========================================================================
