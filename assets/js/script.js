@@ -192,17 +192,33 @@ function initContactForm() {
     e.preventDefault();
 
     const nameInput = document.getElementById('contact-name');
-    const name = nameInput ? nameInput.value : 'there';
+    const emailInput = document.getElementById('contact-email');
+    const messageInput = document.getElementById('contact-message');
+
+    const name = nameInput ? nameInput.value.trim() : 'Visitor';
+    const email = emailInput ? emailInput.value.trim() : '';
+    const message = messageInput ? messageInput.value.trim() : '';
 
     if (toastMsg) {
-      toastMsg.textContent = `Thank you, ${name}! Your message has been sent successfully.`;
+      toastMsg.textContent = `Opening your email client to send message to chin9899nk@gmail.com...`;
     }
 
     toast.classList.add('show');
+
+    // Format email subject & body
+    const subject = encodeURIComponent(`Portfolio Message from ${name}`);
+    const body = encodeURIComponent(`Hi Chinky,\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+    const mailtoUrl = `mailto:chin9899nk@gmail.com?subject=${subject}&body=${body}`;
+
+    // Trigger email client redirect
+    setTimeout(() => {
+      window.location.href = mailtoUrl;
+    }, 400);
+
     form.reset();
 
     setTimeout(() => {
       toast.classList.remove('show');
-    }, 4000);
+    }, 4500);
   });
 }
