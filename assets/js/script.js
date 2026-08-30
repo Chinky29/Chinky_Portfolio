@@ -43,9 +43,8 @@ function initThreeJsAbstractHero() {
   let height = container.clientHeight || window.innerHeight;
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
-  camera.position.set(0, 0, 7);
-
+  const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+  
   const renderer = new THREE.WebGLRenderer({ 
     canvas: canvas, 
     alpha: true, 
@@ -54,83 +53,58 @@ function initThreeJsAbstractHero() {
   renderer.setSize(width, height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
-  // Lighting setup for glossy light reflection highlight
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+  // Lighting
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
   scene.add(ambientLight);
-
-  // Directional Key Light (Upper-Left highlight on purple sphere)
-  const dirLight = new THREE.DirectionalLight(0xffffff, 1.8);
-  dirLight.position.set(-4, 5, 6);
-  scene.add(dirLight);
-
-  // Soft Teal Accent Point Light
-  const pointLight = new THREE.PointLight(0x2DD4BF, 2, 20);
-  pointLight.position.set(2, 2, 4);
+  const pointLight = new THREE.PointLight(0x00f0ff, 2);
+  pointLight.position.set(5, 5, 5);
   scene.add(pointLight);
 
-  // Main Group for parallax
-  const mainGroup = new THREE.Group();
-  scene.add(mainGroup);
-
-  // 1. WIREFRAME ICOSAHEDRON (Teal/Cyan #2DD4BF, thin 1px stroke, ~45% opacity)
-  const wireGeo = new THREE.IcosahedronGeometry(2.4, 1);
-  const wireMat = new THREE.MeshBasicMaterial({
-    color: 0x2DD4BF,
+  // Abstract Geometry (Icosahedron for a tech-y feel)
+  const geometry = new THREE.IcosahedronGeometry(2, 1);
+  const material = new THREE.MeshPhongMaterial({
+    color: 0x00f0ff,
     wireframe: true,
     transparent: true,
-    opacity: 0.45
+    opacity: 0.8
   });
-  const wireframe = new THREE.Mesh(wireGeo, wireMat);
-  wireframe.position.set(0.5, 0, 0); // Positioned between text and photo
-  mainGroup.add(wireframe);
+  const sphere = new THREE.Mesh(geometry, material);
+  scene.add(sphere);
 
-  // 2. GLOWING SOLID SPHERE (Purple/Violet gradient #7C3AED with glossy highlight)
-  const sphereGeo = new THREE.SphereGeometry(1.15, 64, 64);
-  const sphereMat = new THREE.MeshPhongMaterial({
-    color: 0x7C3AED,
-    emissive: 0x4C1D95,
-    emissiveIntensity: 0.4,
-    specular: 0xffffff,
-    shininess: 90,
-    transparent: true,
-    opacity: 0.95
+  // Floating inner core
+  const innerGeo = new THREE.SphereGeometry(0.8, 32, 32);
+  const innerMat = new THREE.MeshPhongMaterial({ 
+    color: 0x7000ff, 
+    emissive: 0x7000ff, 
+    emissiveIntensity: 0.5 
   });
-  const solidSphere = new THREE.Mesh(sphereGeo, sphereMat);
-  // Slightly lower-right of wireframe center, overlapping it
-  solidSphere.position.set(1.1, -0.6, 0.4);
-  mainGroup.add(solidSphere);
+  const core = new THREE.Mesh(innerGeo, innerMat);
+  scene.add(core);
 
-  // Mouse interaction for subtle parallax
+  camera.position.z = 5;
+
+  // Mouse interaction
   let mouseX = 0;
   let mouseY = 0;
-  let targetX = 0;
-  let targetY = 0;
-
   window.addEventListener('mousemove', (e) => {
     mouseX = (e.clientX / window.innerWidth) - 0.5;
     mouseY = (e.clientY / window.innerHeight) - 0.5;
   });
 
-  const clock = new THREE.Clock();
-
   function animate() {
     requestAnimationFrame(animate);
-    const elapsedTime = clock.getElapsedTime();
 
-    // 1. Very slow ambient rotation for wireframe (full rotation over ~50s)
-    wireframe.rotation.y = elapsedTime * 0.12;
-    wireframe.rotation.x = elapsedTime * 0.06;
+    sphere.rotation.x += 0.005;
+    sphere.rotation.y += 0.005;
 
-    // 2. Gentle up-down floating motion for solid sphere (3-4s loop)
-    solidSphere.position.y = -0.6 + Math.sin(elapsedTime * 1.6) * 0.18;
-    solidSphere.position.x = 1.1 + Math.cos(elapsedTime * 1.2) * 0.08;
+    core.rotation.y -= 0.01;
 
-    // 3. Mouse parallax shift toward cursor position
-    targetX = mouseX * 0.6;
-    targetY = -mouseY * 0.6;
+    // Subtle mouse follow
+    sphere.position.x += (mouseX * 2 - sphere.position.x) * 0.05;
+    sphere.position.y += (-mouseY * 2 - sphere.position.y) * 0.05;
 
-    mainGroup.position.x += (targetX - mainGroup.position.x) * 0.04;
-    mainGroup.position.y += (targetY - mainGroup.position.y) * 0.04;
+    core.position.x = sphere.position.x;
+    core.position.y = sphere.position.y;
 
     renderer.render(scene, camera);
   }
