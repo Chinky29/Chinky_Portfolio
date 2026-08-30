@@ -125,20 +125,20 @@ function initThreeJsAbstractHero() {
     requestAnimationFrame(animate);
     const elapsedTime = clock.getElapsedTime();
 
-    // 1. Very slow ambient rotation for wireframe (full rotation over ~50s)
-    wireframe.rotation.y = elapsedTime * 0.12;
-    wireframe.rotation.x = elapsedTime * 0.06;
+    // 1. Ambient rotation for wireframe (full 360° rotation in ~18s)
+    wireframe.rotation.y = elapsedTime * 0.35;
+    wireframe.rotation.x = elapsedTime * 0.18;
 
-    // 2. Gentle up-down floating motion for solid sphere (3-4s loop)
-    solidSphere.position.y = -0.6 + Math.sin(elapsedTime * 1.6) * 0.18;
-    solidSphere.position.x = 1.1 + Math.cos(elapsedTime * 1.2) * 0.08;
+    // 2. Gentle up-down floating motion for solid sphere (~2.7s ease-in-out loop)
+    solidSphere.position.y = -0.6 + Math.sin(elapsedTime * 2.3) * 0.20;
+    solidSphere.position.x = 1.1 + Math.cos(elapsedTime * 1.8) * 0.10;
 
-    // 3. Mouse parallax shift toward cursor position
-    targetX = mouseX * 0.6;
-    targetY = -mouseY * 0.6;
+    // 3. Responsive mouse parallax shift (~0.15s transition latency)
+    targetX = mouseX * 0.7;
+    targetY = -mouseY * 0.7;
 
-    mainGroup.position.x += (targetX - mainGroup.position.x) * 0.04;
-    mainGroup.position.y += (targetY - mainGroup.position.y) * 0.04;
+    mainGroup.position.x += (targetX - mainGroup.position.x) * 0.12;
+    mainGroup.position.y += (targetY - mainGroup.position.y) * 0.12;
 
     renderer.render(scene, camera);
   }
@@ -502,7 +502,14 @@ function initContactForm() {
     resetBtn.addEventListener('click', () => {
       if (successCard) successCard.classList.add('hidden');
       form.classList.remove('hidden');
+      form.reset();
       clearErrors();
+      
+      const btnText = submitBtn.querySelector('.btn-text');
+      const btnSpinner = submitBtn.querySelector('.btn-spinner');
+      if (btnText) btnText.textContent = 'Send Message';
+      if (btnSpinner) btnSpinner.classList.add('hidden');
+      submitBtn.disabled = false;
     });
   }
 }

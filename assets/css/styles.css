@@ -1855,6 +1855,11 @@ a, button, input, textarea {
   border-color: #EF4444 !important;
 }
 
+/* Global Utility Classes */
+.hidden {
+  display: none !important;
+}
+
 .form-general-error {
   background: rgba(239, 68, 68, 0.12);
   border: 1px solid rgba(239, 68, 68, 0.35);
@@ -1865,10 +1870,6 @@ a, button, input, textarea {
   line-height: 1.4;
   margin-top: 1rem;
   text-align: center;
-}
-
-.form-general-error.hidden {
-  display: none;
 }
 
 .btn-spinner {
