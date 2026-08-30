@@ -249,71 +249,79 @@ function initSkillSearch() {
    ========================================================================== */
 
 function initStatsCounter() {
-  const statsSection = document.getElementById('achievements');
   const statNumbers = document.querySelectorAll('.stat-number');
   const cards = document.querySelectorAll('.achievements-grid > div');
 
-  if (!statsSection) return;
+  if (!statNumbers.length) return;
 
-  function animateNumbers() {
-    statNumbers.forEach(numEl => {
-      if (numEl.getAttribute('data-animated') === 'true') return;
+  function animateSingleCounter(numEl) {
+    if (numEl.getAttribute('data-animated') === 'true') return;
 
-      const target = parseInt(numEl.getAttribute('data-target'), 10);
-      if (isNaN(target)) return;
+    // Safely extract numeric value (strips any non-digit characters)
+    const rawAttr = numEl.getAttribute('data-target') || numEl.textContent;
+    const target = parseInt(String(rawAttr).replace(/\D/g, ''), 10);
 
-      numEl.setAttribute('data-animated', 'true');
+    if (isNaN(target) || target <= 0) return;
 
-      const duration = 1600; // 1.6s
-      let startTime = null;
+    // Mark as animated ONLY when count-up animation starts
+    numEl.setAttribute('data-animated', 'true');
 
-      function step(timestamp) {
-        if (!startTime) startTime = timestamp;
-        const elapsed = timestamp - startTime;
-        const progress = Math.min(elapsed / duration, 1);
+    console.log(`[StatCounter] Animating counter for ${numEl.nextElementSibling ? numEl.nextElementSibling.textContent : 'stat'}: Target = ${target}`);
 
-        // Smooth cubic ease-out curve (starts fast, slows near end)
-        const easeOut = 1 - Math.pow(1 - progress, 3);
-        const currentCount = Math.floor(easeOut * target);
+    // Set counter text to 0 at start of animation
+    numEl.textContent = '0';
 
-        numEl.textContent = `${currentCount}+`;
+    const duration = 1600; // 1.6s
+    let startTime = null;
 
-        if (progress < 1) {
-          requestAnimationFrame(step);
-        } else {
-          numEl.textContent = `${target}+`;
-        }
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Smooth cubic ease-out curve (starts fast, decelerates near target)
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      const currentCount = Math.floor(easeOut * target);
+
+      if (progress < 1) {
+        numEl.textContent = `${currentCount}`;
+        requestAnimationFrame(step);
+      } else {
+        // Append "+" suffix ONLY after animation completes
+        numEl.textContent = `${target}+`;
       }
+    }
 
-      requestAnimationFrame(step);
-    });
+    requestAnimationFrame(step);
   }
 
-  function triggerStaggeredEntrance() {
-    cards.forEach((card, index) => {
+  // Trigger staggered card entrance animation
+  cards.forEach((card, index) => {
+    const cardObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            card.classList.add('achievement-card-visible');
+            const numEl = card.querySelector('.stat-number');
+            if (numEl) animateSingleCounter(numEl);
+          }, index * 100);
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    cardObserver.observe(card);
+
+    // Fallback: Immediate check if card is already visible on page load/refresh
+    const rect = card.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
       setTimeout(() => {
         card.classList.add('achievement-card-visible');
-      }, index * 110);
-    });
-    setTimeout(animateNumbers, 150);
-  }
-
-  // IntersectionObserver with low threshold (0.1) for reliable triggering
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        triggerStaggeredEntrance();
-      }
-    });
-  }, { threshold: 0.1 });
-
-  observer.observe(statsSection);
-
-  // Fallback: If section is already visible in viewport on page load/refresh
-  const rect = statsSection.getBoundingClientRect();
-  if (rect.top < window.innerHeight && rect.bottom > 0) {
-    triggerStaggeredEntrance();
-  }
+        const numEl = card.querySelector('.stat-number');
+        if (numEl) animateSingleCounter(numEl);
+      }, index * 100);
+    }
+  });
 }
 
 /* ==========================================================================
