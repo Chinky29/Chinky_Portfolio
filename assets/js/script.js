@@ -4,11 +4,28 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initPreloader();
   initThreeJsAbstractHero();
   initStatsCounter();
   initNavigation();
   initContactForm();
 });
+
+/* ==========================================================================
+   0. PRELOADER SPLASH SCREEN FADE-OUT
+   ========================================================================== */
+
+function initPreloader() {
+  const preloader = document.getElementById('preloader');
+  if (!preloader) return;
+
+  setTimeout(() => {
+    preloader.classList.add('fade-out');
+    setTimeout(() => {
+      preloader.style.display = 'none';
+    }, 800);
+  }, 2600);
+}
 
 /* ==========================================================================
    1. ABSTRACT THREE.JS 3D HERO CANVAS (MINIMAL & PURPOSEFUL)

@@ -7,10 +7,10 @@
   <meta name="description" content="Portfolio of Chinky — B.Tech CSE Student @ ABES Engineering College (2023–2027) & Full-Stack Developer building production-grade web apps, ML products, and developer communities."/>
   <meta name="theme-color" content="#0A0A0F"/>
 
-  <!-- Google Fonts: Space Grotesk & Inter -->
+  <!-- Google Fonts: Space Grotesk, Inter, Great Vibes, Libre Caslon Text -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
 
   <!-- Devicon CDN -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"/>
@@ -21,6 +21,25 @@
   <link rel="stylesheet" href="assets/css/styles.css"/>
 </head>
 <body class="bg-void text-slate-200 antialiased relative selection:bg-indigo-500 selection:text-white">
+
+  <!-- Preloader Splash Screen -->
+  <div id="preloader" class="preloader-overlay">
+    <div class="bg-facets" aria-hidden="true"></div>
+    <main class="flex flex-col items-center justify-center relative overflow-hidden h-full w-full min-h-screen">
+      <div class="text-center z-10 flex flex-col items-center">
+        <div class="relative fade-in mb-8">
+          <h1 class="preloader-script-title gold-text">Chinky</h1>
+          <h1 aria-hidden="true" class="preloader-script-title gold-glow pointer-events-none">Chinky</h1>
+        </div>
+        <div class="fade-in-delayed flex flex-col items-center w-full max-w-[200px]">
+          <div class="preloader-label">Loading...</div>
+          <div class="w-full h-[1px] bg-white/10 relative overflow-hidden rounded-full">
+            <div class="absolute top-0 left-0 h-full loading-line shadow-[0_0_10px_#d4af37]"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
 
   <!-- Background Decorative Ambient Radial Glows -->
   <div class="ambient-glow glow-top" aria-hidden="true"></div>
