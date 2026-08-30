@@ -4,15 +4,23 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  initPreloader();
-  initThreeJsAbstractHero();
-  initScrollAnimations();
-  initProjectFilters();
-  initSkillSearch();
-  initStatsCounter();
-  initNavigation();
-  initContactForm();
+  safeInit('StatsCounter', initStatsCounter);
+  safeInit('Preloader', initPreloader);
+  safeInit('ThreeJsAbstractHero', initThreeJsAbstractHero);
+  safeInit('ScrollAnimations', initScrollAnimations);
+  safeInit('ProjectFilters', initProjectFilters);
+  safeInit('SkillSearch', initSkillSearch);
+  safeInit('Navigation', initNavigation);
+  safeInit('ContactForm', initContactForm);
 });
+
+function safeInit(name, fn) {
+  try {
+    fn();
+  } catch (err) {
+    console.error(`Error initializing ${name}:`, err);
+  }
+}
 
 /* ==========================================================================
    0. PRELOADER SPLASH SCREEN FADE-OUT
@@ -245,84 +253,65 @@ function initSkillSearch() {
 }
 
 /* ==========================================================================
-   5. STATS COUNT-UP OBSERVER & STAGGERED ENTRANCE
+   5. STATS COUNT-UP OBSERVER
    ========================================================================== */
 
 function initStatsCounter() {
-  const achievementsSection = document.getElementById('achievements');
-  if (!achievementsSection) return;
+  const elements = document.querySelectorAll('[data-target]');
+  if (!elements.length) return;
 
-  const statCards = achievementsSection.querySelectorAll('.stat-card, .achievement-item-card');
-  const statNumbers = achievementsSection.querySelectorAll('.stat-number');
+  function animateCounter(el) {
+    if (el.dataset.animated === 'true') return;
+    el.dataset.animated = 'true';
 
-  let hasAnimated = false;
+    const target = parseInt(el.getAttribute('data-target'), 10);
+    if (isNaN(target)) return;
 
-  function animateCount(el, target, duration = 1800) {
-    const start = 0;
-    const startTime = performance.now();
+    let current = 0;
+    const duration = 1500;
+    const stepTime = 16;
+    const steps = duration / stepTime;
+    const increment = target / steps;
 
-    function updateCount(currentTime) {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-
-      // Ease-out cubic: 1 - (1 - t)^3
-      const easeOut = 1 - Math.pow(1 - progress, 3);
-      const currentVal = Math.round(start + (target - start) * easeOut);
-
-      el.textContent = `${currentVal}${progress >= 1 ? '+' : ''}`;
-
-      if (progress < 1) {
-        requestAnimationFrame(updateCount);
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        el.textContent = target + '+';
+        clearInterval(timer);
       } else {
-        el.textContent = `${target}+`;
+        el.textContent = Math.floor(current) + '+';
       }
+    }, stepTime);
+  }
+
+  function checkAndAnimate(el) {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      animateCounter(el);
     }
-
-    requestAnimationFrame(updateCount);
   }
 
-  function triggerAchievementsAnimation() {
-    if (hasAnimated) return;
-    hasAnimated = true;
-
-    // Staggered entrance for all 6 cards
-    statCards.forEach((card, index) => {
-      setTimeout(() => {
-        card.classList.add('achieve-visible');
-
-        // Bounce emoji icon
-        const icon = card.querySelector('.achievement-icon');
-        if (icon) {
-          icon.classList.add('icon-bounce');
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          observer.unobserve(entry.target);
         }
+      });
+    }, { threshold: 0.1 });
 
-        // Trigger number count-up for stat cards
-        const numEl = card.querySelector('.stat-number');
-        if (numEl) {
-          const target = parseInt(numEl.getAttribute('data-target'), 10);
-          if (!isNaN(target)) {
-            animateCount(numEl, target, 1800);
-          }
-        }
-      }, index * 120);
+    elements.forEach(el => {
+      observer.observe(el);
+      checkAndAnimate(el);
     });
+  } else {
+    elements.forEach(el => checkAndAnimate(el));
   }
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        triggerAchievementsAnimation();
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-  observer.observe(achievementsSection);
-
-  // Fallback trigger if section is already in viewport on page reload
-  const rect = achievementsSection.getBoundingClientRect();
-  if (rect.top < window.innerHeight && rect.bottom >= 0) {
-    triggerAchievementsAnimation();
-  }
+  window.addEventListener('scroll', () => {
+    elements.forEach(el => checkAndAnimate(el));
+  }, { passive: true });
 }
 
 /* ==========================================================================
@@ -356,10 +345,11 @@ function initNavigation() {
 function initContactForm() {
   const form = document.getElementById('contact-form');
   const successCard = document.getElementById('contact-success-card');
+  const formErrorBanner = document.getElementById('contact-form-error');
   const resetBtn = document.getElementById('reset-contact-btn');
   const submitBtn = document.getElementById('submit-btn');
 
-  if (!form) return;
+  if (!form || !submitBtn) return;
 
   const nameInput = document.getElementById('contact-name');
   const emailInput = document.getElementById('contact-email');
@@ -383,6 +373,10 @@ function initContactForm() {
     [nameInput, emailInput, messageInput].forEach(inp => {
       if (inp) inp.classList.remove('error-border');
     });
+    if (formErrorBanner) {
+      formErrorBanner.textContent = '';
+      formErrorBanner.classList.add('hidden');
+    }
   }
 
   form.addEventListener('submit', async (e) => {
@@ -427,7 +421,7 @@ function initContactForm() {
 
     if (!isValid) return;
 
-    // Show button loading state
+    // UI state: Disable button & show spinner + "Sending..." text
     const btnText = submitBtn.querySelector('.btn-text');
     const btnSpinner = submitBtn.querySelector('.btn-spinner');
     
@@ -437,41 +431,70 @@ function initContactForm() {
 
     try {
       const formData = new FormData(form);
-      const response = await fetch(form.action, {
+
+      // Support AJAX form endpoints (e.g., FormSubmit / Formspree / Web3Forms)
+      let endpoint = form.action;
+      if (endpoint.includes('formsubmit.co') && !endpoint.includes('/ajax/')) {
+        endpoint = endpoint.replace('formsubmit.co/', 'formsubmit.co/ajax/');
+      }
+
+      // Send request with timeout protection
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 12000);
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         body: formData,
-        headers: { 'Accept': 'application/json' }
+        headers: { 'Accept': 'application/json' },
+        signal: controller.signal
       });
 
-      if (response.ok || response.status === 200) {
-        // Success
+      clearTimeout(timeoutId);
+
+      let isSuccess = false;
+
+      if (response.ok) {
+        try {
+          const data = await response.json();
+          // Evaluate endpoint success indicator
+          if (data && (data.success === 'true' || data.success === true || data.ok === true || !('success' in data))) {
+            isSuccess = true;
+          }
+        } catch (_) {
+          // If response status is OK but parsing JSON failed, treat as HTTP success
+          isSuccess = true;
+        }
+      }
+
+      if (isSuccess) {
+        // ON SUCCESS:
+        // Clear form fields, show success message card
+        form.reset();
         form.classList.add('hidden');
-        if (successCard) successCard.classList.remove('hidden');
+        if (successCard) {
+          const desc = successCard.querySelector('.success-desc');
+          if (desc) desc.textContent = "Message sent! I'll get back to you soon.";
+          successCard.classList.remove('hidden');
+        }
       } else {
-        // Fallback email trigger if AJAX fails
-        throw new Error('Form service failed');
+        throw new Error('Form service error');
       }
     } catch (err) {
-      // Fallback: Format mailto link if offline or service unavailable
-      const name = nameInput ? nameInput.value.trim() : 'Visitor';
-      const email = emailInput ? emailInput.value.trim() : '';
-      const message = messageInput ? messageInput.value.trim() : '';
+      console.error('Form submission failed:', err);
 
-      const subject = encodeURIComponent(`Portfolio Message from ${name}`);
-      const body = encodeURIComponent(`Hi Chinky,\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-      window.location.href = `mailto:chin9899nk@gmail.com?subject=${subject}&body=${body}`;
-
-      form.classList.add('hidden');
-      if (successCard) {
-        successCard.classList.remove('hidden');
-        const desc = successCard.querySelector('.success-desc');
-        if (desc) desc.textContent = "Redirecting to your email client to send message to chin9899nk@gmail.com.";
+      // ON FAILURE:
+      // Show error message and re-enable button so user can retry
+      if (formErrorBanner) {
+        formErrorBanner.textContent = "Something went wrong — please email me directly at chin9899nk@gmail.com";
+        formErrorBanner.classList.remove('hidden');
+      } else {
+        alert("Something went wrong — please email me directly at chin9899nk@gmail.com");
       }
     } finally {
+      // CRITICAL: Spinner ALWAYS stops regardless of success or failure
       if (btnText) btnText.textContent = 'Send Message';
       if (btnSpinner) btnSpinner.classList.add('hidden');
       submitBtn.disabled = false;
-      form.reset();
     }
   });
 
