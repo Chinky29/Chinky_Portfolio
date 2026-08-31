@@ -8,14 +8,13 @@
 [![Three.js](https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=three.js&logoColor=white)](https://threejs.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-🔗 **Live Site**: [https://chinky29.github.io/Chinky_Portfolio/](https://chinky29.github.io/Chinky_Portfolio/) *(Replace with your deployed URL)*
-
+🔗 **Live Site**: [https://chinky29.github.io/Chinky_Portfolio/](https://chinky29.github.io/Chinky_Portfolio/) 
 ---
 
 ## 📷 Preview
 
 ![Portfolio Preview](assets/images/preview.png)
-*(Replace `preview.png` with a screenshot of your deployed portfolio)*
+
 
 ---
 
